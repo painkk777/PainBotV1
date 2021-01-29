@@ -329,3 +329,26 @@ module.exports = msgHandler = async (client, message) => {
         console.error(color(err, 'red'))
     }
 }
+          case 'ytmp4':
+					if (args.length < 1) return reply('Onde estÃ¡ o url, hum?')
+					if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
+					anu = await fetchJson(`https://st4rz.herokuapp.com/api/ytv2?url=${args[0]}`, {method: 'get'})
+					if (anu.error) return reply(anu.error)
+					teks = `*â Title* : ${anu.title}\n\n*VIDEO SEDANG DIKIRIMKAN, JANGAN SPAM YA SAYANG*`
+					thumb = await getBuffer(anu.thumb)
+					client.sendMessage(from, thumb, image, {quoted: mek, caption: teks})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, video, {mimetype: 'video/mp4', filename: `${anu.title}.mp4`, quoted: mek})
+					break
+				case 'trendtwit':
+					client.updatePresence(from, Presence.composing) 
+                                        if (!isUser) return reply(mess.only.daftarB)
+					data = await fetchJson(`https://docs-jojo.herokuapp.com/api/trendingtwitter`, {method: 'get'})
+					teks = '=================\n'
+					for (let i of data.result) {
+						teks += `*Hastag* : ${i.hastag}\n*link* : ${i.link}\n*rank* : ${i.rank}\n*Tweet* : ${i.tweet}\n=================\n`
+					}
+					reply(teks.trim())
+					break
+    }
+}
