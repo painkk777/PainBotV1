@@ -67,7 +67,7 @@ This project require NodeJS v12.
 Clone this project
 
 ```bash
-> git clone https://github.com/painkk777/PainBotV1.git
+> git clone https://github.com/painkk777/PainBotV1-TESTE.git
 > cd PainBotV1
 ```
 
